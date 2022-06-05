@@ -4,3 +4,5 @@ Make a loader that puts a script into the website's code. Has a keylogger and a 
 Uses Firebase (replace the config)
 
 For educational purposes only
+
+### By Using / Downloading / Modifying this, you agree to [CC By Sa](https://creativecommons.org/licenses/by-sa/4.0/)
