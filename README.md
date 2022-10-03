@@ -1,7 +1,8 @@
 # website-backdoor.js
 Make a loader that puts a script into the website's code. Has a keylogger and a live screen view and the ip address of the user.
-Uses HTMLtoCanvas
-Uses Firebase 8.x (replace the config)
+
+- Uses HTMLtoCanvas
+- Uses Firebase 8.x (replace the config)
 
 For educational purposes only
 
